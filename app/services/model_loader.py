@@ -2,10 +2,7 @@ import tensorflow as tf
 import os
 import threading
 
-MODEL_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "../../models/resnet-model-npknows.h5"
-)
+MODEL_PATH = os.getenv("MODEL_PATH")
 
 _model = None
 _lock = threading.Lock()
