@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from .utils.image_preprocess import preprocess_image
 from .services.predictor import predict
-from .services.llm_service import fertilizer_recommendation
+from .services.fertilizer_service import fertilizer_recommendation
 from . import limiter
 
 api = Blueprint("api", __name__)
