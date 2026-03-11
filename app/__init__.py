@@ -2,6 +2,7 @@ from flask import Flask
 from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from .config import Config
 
 cache = Cache()
 
@@ -13,7 +14,7 @@ limiter = Limiter(
 def create_app():
 
     app = Flask(__name__)
-    app.config.from_object("app.config")
+    app.config.from_object(Config)
 
     cache.init_app(app)
     limiter.init_app(app)
