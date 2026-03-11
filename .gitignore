@@ -58,5 +58,9 @@ Thumbs.db
 htmlcov/
 .tox/
 
+Dockerfile
+
+.dockerignore
+
 # Migrations (optional - remove if you want to track)
 # migrations/
