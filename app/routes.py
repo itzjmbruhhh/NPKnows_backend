@@ -16,15 +16,21 @@ def predict_leaf():
 
     file = request.files["image"]
 
-    image_tensor = preprocess_image(file)
+    if file.filename == "":
+        return jsonify({"error": "Empty file submitted"}), 400
 
-    prediction = predict(image_tensor)
+    try:
+        image_tensor = preprocess_image(file)
+        prediction = predict(image_tensor)
+        recommendation = fertilizer_recommendation(prediction["label"])
 
-    recommendation = fertilizer_recommendation(
-        prediction["label"]
-    )
+        return jsonify({
+            "prediction": prediction,
+            "recommendation": recommendation
+        })
 
-    return jsonify({
-        "prediction": prediction,
-        "recommendation": recommendation
-    })
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 422
+
+    except Exception as e:
+        return jsonify({"error": "An unexpected error occurred", "details": str(e)}), 500
