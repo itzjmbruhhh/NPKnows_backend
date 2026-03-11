@@ -2,11 +2,13 @@ from flask import Blueprint, request, jsonify
 from .utils.image_preprocess import preprocess_image
 from .services.predictor import predict
 from .services.llm_service import fertilizer_recommendation
+from . import limiter
 
 api = Blueprint("api", __name__)
 
 
 @api.route("/predict", methods=["POST"])
+@limiter.limit("10 per minute")
 def predict_leaf():
 
     if "image" not in request.files:
